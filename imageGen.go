@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-func processPart(img image.Image, colors []color.RGBA, indexes []int, materialListPointers [][]color.RGBA) (image.Image, error) {
+func processPart(img image.Image, colors []color.RGBA, indexes []int, materialLib [][]color.RGBA) (image.Image, error) {
 	var width int = img.Bounds().Dx()
 	var height int = img.Bounds().Dy()
 	var newImg *image.RGBA = image.NewRGBA(image.Rect(0, 0, width, height))
@@ -21,11 +21,11 @@ func processPart(img image.Image, colors []color.RGBA, indexes []int, materialLi
 			var color color.RGBA = color.RGBA{uint8(r >> 8), uint8(g >> 8), uint8(b >> 8), uint8(a >> 8)}
 			switch {
 			case color == colors[0]:
-				newImg.Set(x, y, materialListPointers[0][indexes[0]])
+				newImg.Set(x, y, materialLib[0][indexes[0]])
 			case color == colors[1]:
-				newImg.Set(x, y, materialListPointers[1][indexes[1]])
+				newImg.Set(x, y, materialLib[1][indexes[1]])
 			case color == colors[2]:
-				newImg.Set(x, y, materialListPointers[2][indexes[2]])
+				newImg.Set(x, y, materialLib[2][indexes[2]])
 			default:
 				newImg.Set(x, y, color)
 			}

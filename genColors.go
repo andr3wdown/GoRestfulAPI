@@ -30,7 +30,7 @@ func GetMaterialLib() *ColorLib {
 		shadowMetalColors: []color.RGBA{
 			{R: 128, G: 128, B: 128, A: 255}, // Gray
 			{R: 139, G: 69, B: 19, A: 255},   // Saddle Brown
-			{R: 0, G: 0, B: 0, A: 255},       // Black
+			{R: 10, G: 10, B: 10, A: 255},    // Dark Grey
 		},
 		wrapColors: []color.RGBA{
 			{R: 255, G: 0, B: 0, A: 255}, // Red

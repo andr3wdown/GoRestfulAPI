@@ -34,31 +34,29 @@ func processPart(img image.Image, colors []color.RGBA, indexes []int, materialLi
 	return newImg, nil
 }
 
-func GenerateSwordImage() string {
+func GenerateSwordImage(imageLib *ImageLib, mainColors []color.RGBA, materialLib *ColorLib) string {
 
-	bladeFile, err := os.Open("images/blades/blade-test.png")
+	bladeFile, err := os.Open("images/blades/" + imageLib.bladeFiles[rand.Intn(len(imageLib.bladeFiles))])
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer bladeFile.Close()
 
 	bladeImg, err := png.Decode(bladeFile)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
-	hiltFile, err := os.Open("images/hilts/hilt-test.png")
+	hiltFile, err := os.Open("images/hilts/" + imageLib.hiltFiles[rand.Intn(len(imageLib.hiltFiles))])
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer hiltFile.Close()
 
 	hiltImg, err := png.Decode(hiltFile)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-	var mainColors []color.RGBA = GetMainColors()
-	var materialLib *ColorLib = GetMaterialLib()
 
 	bladeImg, err = processPart(
 		bladeImg,
@@ -89,11 +87,14 @@ func GenerateSwordImage() string {
 
 	outFile, err := os.Create("images/output/sword.png")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer outFile.Close()
 
-	png.Encode(outFile, swordImg)
+	err = png.Encode(outFile, swordImg)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	return "images/output/sword.png"
 }
